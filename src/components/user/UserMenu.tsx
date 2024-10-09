@@ -1,11 +1,10 @@
-'use client'
+"use client";
 import {
   Bell,
   DollarSign,
   Edit,
   LogOut,
   Moon,
-
   Settings,
   User,
 } from "lucide-react";
@@ -18,27 +17,44 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
 import CreatePostBtn from "../modal/CreatePostBtn";
 import useAuth from "@/stores/authSore";
+import { Avatar } from "./Avatar";
+import VerifiedModal from "../profile/VerifiedModal";
+import { useEffect, useState } from "react";
+import { getEligibility } from "@/services/verified.service";
 
 const UserMenu = () => {
-  const { setAuth } = useAuth();
-
+  const { setAuth, auth } = useAuth();
+  const user = auth?.user;
   const handleLogout = () => {
     setAuth({ token: null, user: null });
   };
+  const [isEligible, setIsEligible] = useState(false);
 
+  useEffect(() => {
+    const fetEligibleSubscription = async () => {
+     const response = await getEligibility(auth?.token as string);
+
+     setIsEligible(response)
+
+    };
+ 
+      if(auth?.token){
+        fetEligibleSubscription()
+      }
+  
+  }, []);
   return (
     <div className="flex items-center space-x-4">
       <CreatePostBtn />
       <Bell className="h-6 w-6 cursor-pointer" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className="cursor-pointer">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <button>
+            <Avatar name={user?.firstName as string} image={user?.image} />
+          </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -70,6 +86,7 @@ const UserMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {isEligible && <VerifiedModal />}
     </div>
   );
 };

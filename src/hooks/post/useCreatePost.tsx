@@ -1,13 +1,13 @@
 "use client";
 import { createPost } from "@/actions/post.action";
-import { InvalidateQueryFilters, useMutation, useQueryClient } from "@tanstack/react-query";
+import {  useMutation } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 
 export default function useCreatePost() {
-  const queryClient = useQueryClient()
 
-  
+
+
 
   return useMutation({
     mutationKey: ["post"] ,
@@ -18,8 +18,8 @@ export default function useCreatePost() {
       toast.success("Post created suucessfully", { position: "top-right" });
     },
     onError: (err) => {
-      console.log(err)
-      // toast.error(err.message, { position: "top-right" });
+
+      toast.error(err.message, { position: "top-right" });
     },
   });
 }

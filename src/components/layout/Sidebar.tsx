@@ -11,7 +11,7 @@ export default function Sidebar() {
 
 
   return (
-    <aside className="w-64 mr-8 hidden md:block">
+    <aside className="w-64 mr-8 hidden md:block ">
       <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
         <CardHeader className="bg-teal-600 text-white p-4">
           <h2 className="text-xl font-semibold">Navigation</h2>

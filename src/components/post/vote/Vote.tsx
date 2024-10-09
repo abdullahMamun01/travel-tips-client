@@ -14,7 +14,7 @@ export default function Vote({ upvotes, downvotes  ,postId}: TVoteProps) {
   const handleDownvote = async(e: React.FormEvent) => {
     e.preventDefault()
    await downvote.mutateAsync({postId , voteType:'downvote'})
-    console.log(downvote.data)
+
   };
   
   const handleUpvote = async (e: React.FormEvent) => {

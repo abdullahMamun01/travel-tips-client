@@ -23,7 +23,7 @@ export default function useRegister() {
       router.refresh();
     },
     onError: (err) => {
-        console.log(err)
+ 
       toast.error(err.message, { position: "top-right" });
     },
   });

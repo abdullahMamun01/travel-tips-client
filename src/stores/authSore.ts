@@ -8,6 +8,10 @@ type TUser = {
   firstName: string;
   lastName: string;
   image?: string;
+  phone?: string;
+  address?: string;
+  location?:string ,
+  bio?:string
 };
 
 type Token = string;
@@ -28,7 +32,7 @@ const useAuth = create<TAuthState>()(
     }),
     {
       name: "auth", // Name of the item in local storage
-      // Optionally, you can add more settings here like version, storage options, etc.
+     
     }
   )
 );

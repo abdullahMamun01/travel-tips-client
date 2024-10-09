@@ -19,28 +19,24 @@ const otpValidate = z.object({
 });
 
 export default function OtpVerifyModal() {
-  const {setStepForgotPassStep ,email} = useForgotPasswordStore()
+  const { setStepForgotPassStep, email } = useForgotPasswordStore();
   const form = useForm<TOtpVerify>({
     resolver: zodResolver(otpValidate),
   });
 
-const {mutateAsync , isPending} = useVerifyOtp()
+  const { mutateAsync, isPending } = useVerifyOtp();
 
-
-  const onSubmit: SubmitHandler<TOtpVerify> =  async (formData) => {
-    console.log(email)
+  const onSubmit: SubmitHandler<TOtpVerify> = async (formData) => {
     try {
-      const response  = await  mutateAsync({email , ...formData});
-      console.log(response.data)
-      if(response.data.otpVerified){
-        setStepForgotPassStep(3)
+      const response = await mutateAsync({ email, ...formData });
+
+      if (response.data.otpVerified) {
+        setStepForgotPassStep(3);
       }
     } catch (error) {
-
-      catchError(error)
+      catchError(error);
     }
-  }
-    
+  };
 
   return (
     <>
@@ -55,12 +51,11 @@ const {mutateAsync , isPending} = useVerifyOtp()
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <ControlledInput
-            name="otp"
-            formControl={form.control}
-            inputType="text"
-            label="OTP"
-            placeholder="Enter your 6 digi otp"
-
+              name="otp"
+              formControl={form.control}
+              inputType="text"
+              label="OTP"
+              placeholder="Enter your 6 digi otp"
             />
           </div>
           <SubmitButton isLoading={isPending} className="w-full">

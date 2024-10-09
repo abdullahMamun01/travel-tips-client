@@ -9,8 +9,8 @@ type TPostMutate = {
 };
 
 type TPostState = {
-  post: TPostMutate | null;
-  updatePost: (post: TPostMutate) => void;
+  updatePost: TPostMutate | null;
+  setPost: (post: TPostMutate) => void;
   selectPostId: string | null;
   setPostId: (postId: string) => void;
   clearPostId: () => void;
@@ -18,10 +18,10 @@ type TPostState = {
 };
 
 export const usePostStore = create<TPostState>((set) => ({
-  post: null, // Initialize with null
+  updatePost: null, // Initialize with null
   selectPostId: null,
-  updatePost: (post: TPostMutate) => set({ post }),
-  clearPost: () => set({ post: null }),
+  setPost: (post: TPostMutate) => set({ updatePost:post }),
+  clearPost: () => set({ updatePost: null }),
   setPostId: (postId: string) => set({ selectPostId: postId }),
   clearPostId: () => set({ selectPostId: null }),
 }));

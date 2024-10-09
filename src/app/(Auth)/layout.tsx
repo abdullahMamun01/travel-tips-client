@@ -8,7 +8,7 @@ import React, { ReactNode } from "react";
 
 export default function layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  console.log(pathname);
+
   return (
     <div className="flex min-h-screen bg-background">
       <div className="hidden w-1/2 bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')] bg-cover bg-center lg:block">

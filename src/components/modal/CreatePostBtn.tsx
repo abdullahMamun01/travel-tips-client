@@ -12,12 +12,23 @@ import {
 } from "@/components/ui/dialog";
 
 import dynamic from "next/dynamic";
+import { useModal } from "@/stores/modalStore";
+import { usePostStore } from "@/stores/postStore";
 
 const PostModal = dynamic(() => import("./PostModal"), { ssr: false });
+
+
 export default function CreatePostBtn() {
+  const {isOpen ,toggleModal} = useModal()
+  const {clearPost} = usePostStore()
+  const handleModalChange = () => {
+    toggleModal()
+    clearPost()
+  }
+
   return (
     <div className="w-full">
-      <Dialog>
+      <Dialog open={isOpen} onOpenChange={handleModalChange}>
         <DialogTrigger asChild>
           <Button className="bg-white text-teal-600 hover:bg-teal-100">
             <PlusCircle className="mr-2 h-4 w-4" />

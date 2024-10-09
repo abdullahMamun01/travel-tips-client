@@ -1,4 +1,3 @@
-
 import PostCard from "./PostCard";
 
 import { ScrollArea } from "../ui/scroll-area";
@@ -10,8 +9,6 @@ import {
 } from "@tanstack/react-query";
 import apiClient from "@/api/axios";
 import { IPostResponse } from "@/types/post.type";
-
-
 
 const posts = async () => {
   const response = await apiClient.get("/posts");
@@ -32,7 +29,7 @@ export default async function Posts() {
 
       <ScrollArea className="h-[calc(100vh-50px)]">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <div className="space-y-6">
+          <div className="space-y-6 grid  ">
             {data?.data?.map((post) => (
               <PostCard key={post._id} {...post} />
             ))}

@@ -38,6 +38,8 @@ export default function LoginForm() {
           firstName: user.firstName,
           lastName: user.lastName,
           _id: user?._id,
+          phone: user.phone || "",
+          address: user.address || "",
         },
       });
     }

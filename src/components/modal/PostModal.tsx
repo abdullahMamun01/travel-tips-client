@@ -11,9 +11,23 @@ import { postValidateSchema } from "@/validate-schema/post.schema";
 import { TPost } from "@/types/post.type";
 import useCreatePost from "@/hooks/post/useCreatePost";
 import SubmitButton from "../form/SubmitButton";
+import { usePostStore } from "@/stores/postStore";
+import useUpdatePost from "@/hooks/post/useUpdatePost";
+import { useModal } from "@/stores/modalStore";
 
 export default function PostModal() {
   const { mutateAsync, isPending } = useCreatePost();
+  const updatePostMutate = useUpdatePost();
+
+  const { updatePost } = usePostStore();
+  const {setCloseModal} = useModal()
+  const form = useForm<TPost>({
+    resolver: zodResolver(postValidateSchema),
+    defaultValues: {
+      description: updatePost?.description || "",
+      title: updatePost?.title || "",
+    },
+  });
 
   const onSubmit: SubmitHandler<TPost> = async (data) => {
     const formValues = { ...data };
@@ -30,13 +44,18 @@ export default function PostModal() {
         formData.append(key, value as string);
       }
     }
+    if (updatePost) {
+      await updatePostMutate.mutateAsync({
+        body: formData,
+        postId: updatePost.postId,
+      });
+      setCloseModal()
+    } else {
+      await mutateAsync(formData);
+      setCloseModal()
+    }
 
-    await mutateAsync(formData);
   };
-
-  const form = useForm<TPost>({
-    resolver: zodResolver(postValidateSchema),
-  });
 
   return (
     <div>
@@ -66,7 +85,9 @@ export default function PostModal() {
               <ImageUpload />
             </div>
 
-            <SubmitButton isLoading={isPending}>Submit</SubmitButton>
+            <SubmitButton isLoading={updatePost? updatePostMutate.isPending : isPending}>
+              {updatePost ? "update post" : "create new post"}
+            </SubmitButton>
           </form>
         </FormProvider>
       </div>

@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import * as React from "react";
-
-
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -13,6 +11,7 @@ import {
 } from "../ui/select";
 import { Control, Controller, useFormContext } from "react-hook-form";
 import { Label } from "../ui/label";
+import { usePostStore } from "@/stores/postStore";
 
 // Define the travel categories as constant
 const categoryList = [
@@ -39,24 +38,32 @@ const categoryList = [
 ];
 
 type TravelCategoryProps = {
-  formControl : Control<any>
-}
+  formControl: Control<any>;
+};
 
 export default function TravelCategory({
-  formControl 
+  formControl,
 }: TravelCategoryProps) {
   const {
     formState: { errors },
   } = useFormContext();
+
+  const { updatePost } = usePostStore();
+
+  const category = updatePost?.categories?.toString() || ""; // Get the category or default to an empty string
+
   return (
     <div className="my-4">
       <Controller
         name="categories"
         control={formControl}
         rules={{ required: "Category is required" }}
+        defaultValue={category} // Set the default value directly
         render={({ field }) => (
-          <Select onValueChange={field.onChange} value={field.value} >
-            <div  className="mb-2"><Label className="">Select Category</Label></div>
+          <Select onValueChange={field.onChange} value={field.value || category}>
+            <div className="mb-2">
+              <Label className="">Select Category</Label>
+            </div>
             <SelectTrigger>
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
@@ -70,8 +77,8 @@ export default function TravelCategory({
           </Select>
         )}
       />
-      {errors.category && (
-        <p className="text-red-500">{errors.category.message as string}</p>
+      {errors.categories && ( // Ensure you're checking errors correctly
+        <p className="text-red-500">{errors.categories.message as string}</p>
       )}
     </div>
   );

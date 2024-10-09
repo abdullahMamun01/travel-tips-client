@@ -26,7 +26,7 @@ export default function ResendOtpModal() {
     resolver: zodResolver(otpVerifySchema),
   });
 
-  console.log(isPending);
+
 
   const onSubmit: SubmitHandler<TOtpInput> = async (formData) => {
     try {
@@ -41,7 +41,7 @@ export default function ResendOtpModal() {
     }
     
   };
-  console.log(error?.message)
+
   return (
     <div>
       <DialogHeader>

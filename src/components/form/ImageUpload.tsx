@@ -1,10 +1,11 @@
 'use client'
 import Image from "next/image";
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Edit2, ImageIcon, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Controller, useFormContext } from "react-hook-form";
+import { usePostStore } from "@/stores/postStore";
 
 
 function arrayToFileList(files: File[]): FileList {
@@ -12,9 +13,29 @@ function arrayToFileList(files: File[]): FileList {
   files.forEach((file) => dataTransfer.items.add(file));
   return dataTransfer.files;
 }
+async function convertUrlsToFiles(urls: string[]): Promise<File[]> {
+  const files = await Promise.all(
+    urls.map(async (url, index) => {
+      const response = await fetch(url); // Fetch the image from the URL
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image from ${url}: ${response.statusText}`);
+      }
+
+      const blob = await response.blob(); // Convert the response to a Blob
+      return new File([blob], `image-${index + 1}.webp`, { type: blob.type }); // Create a File object
+    })
+  );
+
+  return files; // Return the array of File objects
+}
+
 
 export default function ImageUpload() {
-  const [images, setImages] = useState<File[]>([]);
+
+  const {updatePost} = usePostStore()
+  const oldImageFromDb  = updatePost?.images
+  const [images, setImages] = useState<File[] >([]);
 
   const {
 
@@ -53,7 +74,19 @@ export default function ImageUpload() {
     setValue("images", updatedFileList); 
   };
 
+useEffect(() => {
+  const imageFiles = async (images:string[]) => {
+    const res = await convertUrlsToFiles(images)
+    const fileList = arrayToFileList(res)
 
+    setValue('images' ,fileList)
+    setImages(res)
+  }
+  if(updatePost?.images){
+    imageFiles(updatePost.images)
+  }
+  
+}, [])
 
   return (
     <div className="relative rounded-md p-8 min-h-[300px] bg-gray-100 ">
