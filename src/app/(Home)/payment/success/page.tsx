@@ -92,7 +92,7 @@ export default function PaymentSuccess({
       clearInterval(progressInterval);
       clearInterval(countdownInterval);
     };
-  }, [auth.token ,session_id,]);
+  }, [auth ,session_id,]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center w-full">
