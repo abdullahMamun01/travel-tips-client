@@ -1,25 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 import {
   Select,
@@ -35,12 +19,8 @@ import AnalyticOverview from "@/components/dashboard/analytic/AnalyticOverview";
 
 import UserManagement from "@/components/dashboard/users/UserManagement";
 import PostsManagement from "@/components/dashboard/posts/PostManagement";
+import PaymentManagement from "@/components/dashboard/payment/PaymentManagement";
 
-const recentPayments = [
-  { id: 1, user: "John Doe", amount: 50, date: "2023-06-15" },
-  { id: 2, user: "Jane Smith", amount: 75, date: "2023-06-14" },
-  { id: 3, user: "Bob Johnson", amount: 100, date: "2023-06-13" },
-];
 
 export default function AdminDashboard() {
 
@@ -110,40 +90,7 @@ export default function AdminDashboard() {
           <UserManagement />
         </TabsContent>
         <TabsContent value="payments" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Payment Management</CardTitle>
-              <CardDescription>View and manage payments</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex justify-between mb-4">
-                <Input className="max-w-sm" placeholder="Search payments..." />
-                <Button>Export CSV</Button>
-              </div>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>User</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {recentPayments.map((payment) => (
-                    <TableRow key={payment.id}>
-                      <TableCell>{payment.user}</TableCell>
-                      <TableCell>${payment.amount}</TableCell>
-                      <TableCell>{payment.date}</TableCell>
-                      <TableCell>
-                        <Button variant="ghost">View Details</Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <PaymentManagement/>
         </TabsContent>
         <TabsContent value="content" className="space-y-4">
           <PostsManagement />

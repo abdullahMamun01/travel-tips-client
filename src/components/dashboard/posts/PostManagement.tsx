@@ -4,6 +4,7 @@ import { Card,CardContent,CardDescription  ,CardHeader,CardTitle } from "@/compo
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table,TableBody  ,TableRow ,TableHeader,TableHead ,TableCell } from "@/components/ui/table";
+import useAdminDeletePost from "@/hooks/admin/useAdminDeletePost";
 import { useQuery } from "@tanstack/react-query";
 import { MoreHorizontal } from "lucide-react";
 import React from "react";
@@ -14,11 +15,17 @@ export default function PostsManagement() {
     queryKey: ['admin-posts'] ,
     queryFn: async () => await getAllPosts()
   })
+  const deletePostAction = useAdminDeletePost()
 
   if(isLoading){
     return <div>Loading...</div>
   }
   const posts = data?.data
+
+  const handleDeletePost = async (postId:string) => {
+    await deletePostAction.mutateAsync(postId)
+  }
+
   return (
     <Card>
     <CardHeader>
@@ -45,6 +52,8 @@ export default function PostsManagement() {
               <TableCell>{post.title}</TableCell>
               <TableCell>{post.user?.firstName} {" "} {post.user?.lastName}</TableCell>
               <TableCell>{post?.createdAt ? new Date(post?.createdAt).toDateString() : ""}</TableCell>
+              {/* <TableCell>{post? ?  : ""}</TableCell> */}
+
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -57,7 +66,7 @@ export default function PostsManagement() {
                     <DropdownMenuItem>Edit</DropdownMenuItem>
                     <DropdownMenuItem>View</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="text-red-600">
+                    <DropdownMenuItem className="text-red-600 cursor-pointer" onClick={() => handleDeletePost(post._id)}>
                       Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>

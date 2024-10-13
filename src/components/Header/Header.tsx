@@ -5,10 +5,11 @@ import dynamic from "next/dynamic";
 
 // import AuthHeader from './AuthHeader'
 import AuthSkeleton from "../skeleton/AuthSkeleton";
+import Link from "next/link";
 
 const AuthHeader = dynamic(() => import("./AuthHeader"), {
-  loading: () => <AuthSkeleton/>,
-  ssr: false
+  loading: () => <AuthSkeleton />,
+  ssr: false,
 });
 export default function Header() {
   return (
@@ -16,7 +17,9 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Globe className="h-8 w-8 " />
-          <h1 className="text-2xl  font-bold">Tripo-Rio</h1>
+          <Link href="/">
+            <h1 className="text-2xl  font-bold">Tripo-Rio</h1>
+          </Link>
         </div>
         <AuthHeader />
       </div>
