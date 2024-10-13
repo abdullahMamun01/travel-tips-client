@@ -11,6 +11,7 @@ type TUser = {
   phone?: string;
   address?: string;
   location?:string ,
+  isVerified: boolean ,
   bio?:string
 };
 

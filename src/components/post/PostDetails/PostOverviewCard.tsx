@@ -1,4 +1,4 @@
-import apiClient from "@/api/axios";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,32 +7,20 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import imageUrlParser from "@/lib/imageUrlParser";
-import { TSinglePostResponse } from "@/types/post.type";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
+import { TSinglePost } from "@/types/post.type";
+
 import { MessageCircle, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 
 
-const PostDetails = async () => {
-  const response = await apiClient.get(`/posts/6701726af7a9d5e4156d6b3a`);
-  return response.data;
-};
-export default async function PostOverviewCard() {
-  const queryClient = new QueryClient();
-  const { data }: TSinglePostResponse = await queryClient.fetchQuery({
-    queryKey: ["posts", "6701726af7a9d5e4156d6b3a"],
-    queryFn: PostDetails,
-  });
+export default  function PostOverviewCard({ data }: {data:TSinglePost}){
+
 
   return (
     <Card className="mb-8 overflow-hidden shadow-lg">
-      <HydrationBoundary state={dehydrate(queryClient)}>
+     
         <CardHeader className="p-0">
           <Image
             width={1000}
@@ -66,7 +54,7 @@ export default async function PostOverviewCard() {
             </Button>
           </div>
         </CardFooter>
-      </HydrationBoundary>
+
     </Card>
   );
 }

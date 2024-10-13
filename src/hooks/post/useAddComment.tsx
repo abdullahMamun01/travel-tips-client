@@ -3,7 +3,7 @@
 import apiClient from "@/api/axios";
 import useAuth from "@/stores/authSore";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 
@@ -14,6 +14,8 @@ type TPayload = {
 };
 
 const commentAction = async (payload: TPayload) => {
+
+
   const response = await apiClient.post(
     `/posts/${payload.postId}/comments`,
     payload,
@@ -27,12 +29,16 @@ const commentAction = async (payload: TPayload) => {
 };
 
 export default function useAddComment() {
+
+  const queryClient = useQueryClient()
+
   const { auth } = useAuth();
   return useMutation({
     mutationKey: ["comments", auth?.user?._id],
     mutationFn: commentAction,
     onMutate: () => {},
-    onSuccess: async () => {
+    onSuccess:  () => {
+      queryClient.invalidateQueries( {queryKey : ['posts']})
       toast.success("comment suucessfully", { position: "top-right" });
     },
     onError: (err) => {

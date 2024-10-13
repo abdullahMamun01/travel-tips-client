@@ -47,8 +47,8 @@ export default function PostActions({
     setOpenModal();
   };
 
-  const { mutateAsync, isPending,error } = useDeletePost();
-console.log(error)
+  const { mutateAsync, isPending } = useDeletePost();
+
   const openDeleteDialog = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevents dropdown from closing
     setDeleteDialogOpen(true); // Manually open the dialog

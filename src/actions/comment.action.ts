@@ -1,7 +1,7 @@
 "use server";
 
 import apiClient from "@/api/axios";
-import { revalidatePath } from "next/cache";
+
 
 const deletCommentAction = async ({
   token,
@@ -15,7 +15,7 @@ const deletCommentAction = async ({
       Authorization: `Bearer ${token}`,
     },
   });
-  revalidatePath(`/post/${commentId}`);
+
   return response.data;
 };
 

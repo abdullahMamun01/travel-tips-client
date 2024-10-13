@@ -1,13 +1,15 @@
 "use client";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, Palmtree, Plane } from "lucide-react";
-import Link from "next/link";
+import AuthTabs from "@/components/auth/AuthTabs";
 
-import { usePathname } from "next/navigation";
+import { MapPin, Palmtree, Plane } from "lucide-react";
+
+
+
+
 import React, { ReactNode } from "react";
 
 export default function layout({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -37,16 +39,7 @@ export default function layout({ children }: { children: ReactNode }) {
             </p>
           </div>
           <div className="mt-6">
-            <Tabs value={pathname.slice(1)} className="w-full my-6">
-              <TabsList className="grid w-full grid-cols-2">
-                <Link href="/login" className="w-full text-center">
-                  <TabsTrigger value="login" className="w-full">Login</TabsTrigger>
-                </Link>
-                <Link href="/register">
-                  <TabsTrigger value="register" className="w-full">Register</TabsTrigger>
-                </Link>
-              </TabsList>
-            </Tabs>
+            <AuthTabs/>
             {children}
           </div>
         </div>

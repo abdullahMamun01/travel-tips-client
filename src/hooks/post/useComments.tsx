@@ -13,9 +13,9 @@ type TCommentResponse = {
 }
 
 const commentList = async (postId:string) : Promise<TCommentResponse> => {
-    console.log(postId)
+
   const response = await apiClient.get(
-    `/posts/6701726af7a9d5e4156d6b3a/comments`
+    `/posts/${postId}/comments`
   );
   return response.data;
 };

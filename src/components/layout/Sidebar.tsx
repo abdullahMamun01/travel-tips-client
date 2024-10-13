@@ -1,66 +1,103 @@
-"use client"
-import React, { useState } from "react";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { Bookmark, Clock, Compass, Settings, TrendingUp } from "lucide-react";
+"use client";
+import React from "react";
+
+import {
+  Award,
+  Bookmark,
+  Clock,
+  Compass,
+  Globe,
+  History,
+  Map,
+  MessageSquare,
+  PenTool,
+  PlusCircle,
+  Tag,
+  Users,
+} from "lucide-react";
 import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-const categories = ["Beach", "City", "Mountain", "Food", "Culture"];
 
 export default function Sidebar() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
-
   return (
-    <aside className="w-64 mr-8 hidden md:block ">
-      <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <CardHeader className="bg-teal-600 text-white p-4">
-          <h2 className="text-xl font-semibold">Navigation</h2>
-        </CardHeader>
-        <CardContent className="p-4">
-          <nav className="space-y-2">
+    <div className="pb-12">
+      <div className="space-y-4 py-4">
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Discover
+          </h2>
+          <div className="space-y-1">
+            <Button variant="secondary" className="w-full justify-start">
+              <Globe className="mr-2 h-4 w-4" />
+              Explore Destinations
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Plan New Trip
+            </Button>
+          </div>
+        </div>
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Categories
+          </h2>
+          <div className="space-y-1">
+            <Button variant="ghost" className="w-full justify-start">
+              <Map className="mr-2 h-4 w-4" />
+              Destinations
+            </Button>
             <Button variant="ghost" className="w-full justify-start">
               <Compass className="mr-2 h-4 w-4" />
-              Explore
+              Travel Tips
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <TrendingUp className="mr-2 h-4 w-4" />
-              Trending
+              <Users className="mr-2 h-4 w-4" />
+              Travel Stories
+            </Button>
+          </div>
+        </div>
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Interact
+          </h2>
+          <div className="space-y-1">
+            <Button variant="ghost" className="w-full justify-start">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Discussions
             </Button>
             <Button variant="ghost" className="w-full justify-start">
-              <Clock className="mr-2 h-4 w-4" />
-              Recent
+              <Tag className="mr-2 h-4 w-4" />
+              Tags
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Award className="mr-2 h-4 w-4" />
+              Top Contributors
+            </Button>
+          </div>
+        </div>
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Activity
+          </h2>
+          <div className="space-y-1">
+            <Button variant="ghost" className="w-full justify-start">
+              <PenTool className="mr-2 h-4 w-4" />
+              Submit a Post
             </Button>
             <Button variant="ghost" className="w-full justify-start">
               <Bookmark className="mr-2 h-4 w-4" />
-              Saved
+              Bookmarks
             </Button>
-          </nav>
-          <Separator className="my-4" />
-          <h3 className="font-semibold mb-2">Categories</h3>
-          <div className="space-y-2">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant="ghost"
-                className={`w-full justify-start ${
-                  selectedCategory === category
-                    ? "bg-teal-100 text-teal-600"
-                    : ""
-                }`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </Button>
-            ))}
+            <Button variant="ghost" className="w-full justify-start">
+              <Clock className="mr-2 h-4 w-4" />
+              Recent Views
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <History className="mr-2 h-4 w-4" />
+              History
+            </Button>
           </div>
-        </CardContent>
-        <CardFooter className="bg-gray-50 p-4">
-          <Button variant="ghost" className="w-full justify-start">
-            <Settings className="mr-2 h-4 w-4" />
-            Settings
-          </Button>
-        </CardFooter>
-      </Card>
-    </aside>
+        </div>
+      </div>
+    </div>
   );
 }

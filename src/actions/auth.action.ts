@@ -9,7 +9,9 @@ import { jwtDecode } from "jwt-decode";
 export const loginUser = async (formData: FieldValues) => {
   try {
     const response = await apiClient.post("/auth/login", formData);
-    cookies().set("accessToken", response.data.token);
+    cookies().set("accessToken", response.data.token , {
+      maxAge: 60 * 60 * 24 * 7,
+    });
 
     return response.data;
   } catch (error: any) {
@@ -31,6 +33,7 @@ export const getCurrentUser = async () => {
       lastName: decodedToken.lastName,
       email: decodedToken.email,
       role: decodedToken.role,
+      isVerified:  decodedToken.isVerified,
       token: accessToken
     };
   }

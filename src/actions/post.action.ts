@@ -3,6 +3,46 @@ import apiClient from "@/api/axios";
 import { cookies } from "next/headers";
 import { getCurrentUser } from "./auth.action";
 import { revalidatePath } from "next/cache";
+import { IPostResponse } from "@/types/post.type";
+type TPayload = {
+  searchTerm?: string;
+  categories?: string;
+  sortBy?: string;
+  pageParam: string;
+};
+
+export const getPosts = async (payload: TPayload): Promise<IPostResponse> => {
+  const { searchTerm, categories, sortBy, pageParam } = payload;
+  
+  const queryParams = new URLSearchParams();
+
+  if (searchTerm) {
+    queryParams.append("searchTerm", searchTerm);
+  }
+
+  if (categories) {
+    console.log(categories)
+    if(categories === 'All' ){
+      queryParams.append("categories", "");
+    }else {
+      queryParams.append("categories", categories);
+    }
+    
+  }
+
+  if (sortBy) {
+    if (sortBy === "Most Upvote") {
+      queryParams.append("mostVote", "true");
+    } else queryParams.append("mostVote", "false");
+  }
+
+  queryParams.append("page", pageParam);
+  queryParams.append("limit", "5");
+
+  const response = await apiClient.get(`/posts?${queryParams.toString()}`);
+
+  return response.data.data;
+};
 
 const createPost = async (payload: FormData) => {
   const user = await getCurrentUser();
@@ -23,7 +63,7 @@ const createPost = async (payload: FormData) => {
   return response.data;
 };
 
- const deletPostAction = async ({
+const deletPostAction = async ({
   token,
   postId,
 }: {
@@ -35,8 +75,8 @@ const createPost = async (payload: FormData) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  revalidatePath('/')
+  revalidatePath("/");
   return response.data;
 };
 
-export { createPost ,deletPostAction};
+export { createPost, deletPostAction };

@@ -12,11 +12,11 @@ const AuthHeader = dynamic(() => import("./AuthHeader"), {
 });
 export default function Header() {
   return (
-    <header className="bg-teal-600 text-white shadow-lg">
+    <header className="bg-white text-teal-800 border-b sticky top-0 z-[999]">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Globe className="h-8 w-8" />
-          <h1 className="text-2xl font-bold">Tripo-Rio</h1>
+          <Globe className="h-8 w-8 " />
+          <h1 className="text-2xl  font-bold">Tripo-Rio</h1>
         </div>
         <AuthHeader />
       </div>

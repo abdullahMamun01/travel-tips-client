@@ -7,6 +7,10 @@ import {
 } from "@/services/types/user.type";
 import { updateProfile } from "@/services/userService";
 import { revalidatePath } from "next/cache";
+import { getCurrentUser } from "./auth.action";
+import { TAxiosResponse } from "@/services/service.type";
+
+import { TUserAdminAccess } from "@/types/admin.type";
 
 export const updateProfileAction = async (payload: TProfileUpdatePayload) => {
   const respones = await updateProfile(payload);
@@ -42,3 +46,13 @@ export const unfollowAction = async (payload: TFollowUnfollow) => {
 };
 
 
+export const getAllUser = async (): Promise<TAxiosResponse<TUserAdminAccess[]>> => {
+  const user = await getCurrentUser();
+  const response = await apiClient.get(`/admin/users`, {
+    headers: {
+      Authorization: `Bearer ${user?.token}`,
+    },
+  });
+
+  return response.data;
+};

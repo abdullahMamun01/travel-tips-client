@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import CommentBox from "./CommentBox";
 import Comment from "./Comment";
 
-export default function CommentList() {
-  const { data, isLoading } = useComments("");
+export default function CommentList({ postId }: { postId: string }) {
+  const { data, isLoading } = useComments(postId);
   if (isLoading) {
     return <div>Loading...</div>;
   }

@@ -34,7 +34,7 @@ async function convertUrlsToFiles(urls: string[]): Promise<File[]> {
 export default function ImageUpload() {
 
   const {updatePost} = usePostStore()
-  const oldImageFromDb  = updatePost?.images
+
   const [images, setImages] = useState<File[] >([]);
 
   const {

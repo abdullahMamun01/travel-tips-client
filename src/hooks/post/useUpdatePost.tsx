@@ -2,9 +2,9 @@
 import apiClient from "@/api/axios";
 import useAuth from "@/stores/authSore";
 import { usePostStore } from "@/stores/postStore";
-import { TPostMutate } from "@/types/post.type";
+
 import { QueryClient, useMutation } from "@tanstack/react-query";
-import { revalidatePath } from "next/cache";
+
 
 import toast from "react-hot-toast";
 

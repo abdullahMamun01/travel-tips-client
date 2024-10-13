@@ -1,4 +1,4 @@
-import { MapPin, Mail, Calendar, Edit2 } from "lucide-react";
+import { MapPin, Mail, Calendar } from "lucide-react";
 
 
 import { TUser } from "@/services/types/user.type";

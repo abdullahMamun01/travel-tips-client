@@ -7,18 +7,20 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "../ui/button";
-import { MessageCircle } from "lucide-react";
+
+import { Bookmark, Link2, Lock } from "lucide-react";
 import Image from "next/image";
 
 import { IPost } from "@/types/post.type";
 import imageUrlParser from "@/lib/imageUrlParser";
 import Vote from "./vote/Vote";
-import PostBadge from "./PostBadge";
+
 import PostActions from "./PostActions";
 import { Avatar } from "../user/Avatar";
 
-import FollowUnfollow from "../user/FollowUnfollow";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
+import { timeAgo } from "@/lib/timeAgo";
 
 // const FollowUnfollow = dynamic(() => import("../user/FollowUnfollow"), {
 //   ssr: false
@@ -29,25 +31,35 @@ export default function PostCard({
   images,
   categories,
   user,
-  commentCount,
   upvoteCount,
   downvoteCount,
   description,
   premium,
-  userId,
+  createdAt,
+
   _id: postId,
 }: IPost) {
-  const contentType = premium ? "premium" : "free";
 
-  const imageList = images.map((img) => imageUrlParser(img));
 
+  const imageList = images?.map((img) => imageUrlParser(img));
+  //className={`bg-white border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 ${premium? 'border-2 border-yellow-400' : ''}
   return (
-    <Card className="bg-white relative shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ">
+    <Card
+      className={`bg-white w-full border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 relative ${
+        premium ? "border-2 border-yellow-400" : ""
+      }`}
+    >
       <Link href={`/posts/${postId}`}>
-        <PostBadge categories={categories} contentType={contentType} />
+        {premium && (
+          <Badge className="absolute top-2 left-2 right-2 bg-yellow-400 text-yellow-900 w-20">
+            <Lock className="w-8 h-3 mr-1" />
+            Premium
+          </Badge>
+        )}
+
         <div className="absolute top-2 right-2 flex space-x-2">
           <PostActions
-            currentUser={user._id}
+            currentUser={user?._id}
             postId={postId}
             categories={categories}
             description={description}
@@ -66,49 +78,62 @@ export default function PostCard({
             className="w-full h-48 object-cover"
           />
         </CardHeader>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between space-x-2 mb-4">
-            {/* <div className="flex items-center justify-between */}
-
-            <div className="flex gap-3 items-center">
-              <Avatar name={user.firstName} image={user.image} />
-              <div>
-                <p className="font-semibold">
-                  {user.firstName} {user.lastName}
-                </p>
-              </div>
-            </div>
-            <div>
-              <FollowUnfollow userId={user._id} />
+        <CardContent className="p-4">
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center space-x-2">
+              <Avatar
+                name={user.firstName}
+                image={user.image}
+                isVerified={user.isVerified}
+              />
+              <span className="text-sm text-gray-600">
+                {user.firstName} {user.lastName}
+              </span>
             </div>
           </div>
-          <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
-
-          {/* <div  */}
-          <div
-            className="line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
+          <div className="flex flex-wrap gap-2 mb-2">
+            {categories.map((tag) => (
+              <Badge
+                key={tag}
+                variant="secondary"
+                className="bg-blue-100 text-blue-800"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <div className="text-sm text-gray-500">
+            {timeAgo(createdAt)}
+            time
+          </div>
         </CardContent>
-        <CardFooter className="bg-gray-50 px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            {/* <Upvote upvotes={upvoteCount} />
-          <DownVote downvotes={downvoteCount} /> */}
-            <Vote
-              upvotes={upvoteCount}
-              downvotes={downvoteCount}
-              postId={postId}
-            />
-          </div>
+      </Link>
+      <CardFooter className="flex justify-between items-center p-4 bg-gray-50 rounded-b-lg">
+        <div className="flex items-center space-x-4">
+          <Vote
+            upvotes={upvoteCount}
+            downvotes={downvoteCount}
+            postId={postId}
+          />
+        </div>
+        <div className="flex space-x-2">
           <Button
             variant="ghost"
-            className="text-teal-600 hover:text-teal-800 p-1"
+            size="icon"
+            className="text-gray-600 hover:text-blue-600"
           >
-            <MessageCircle className="h-5 w-5 mr-1" />
-            {commentCount}
+            <Bookmark className="w-4 h-4" />
           </Button>
-        </CardFooter>
-      </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-gray-600 hover:text-blue-600"
+          >
+            <Link2 className="w-4 h-4" />
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

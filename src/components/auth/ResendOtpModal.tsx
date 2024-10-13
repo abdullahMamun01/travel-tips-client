@@ -21,7 +21,7 @@ const otpVerifySchema = z.object({
 
 export default function ResendOtpModal() {
   const {setStepForgotPassStep,setEmail} = useForgotPasswordStore()
-  const { mutateAsync, isPending ,error } = useSendOtp();
+  const { mutateAsync, isPending  } = useSendOtp();
   const form = useForm<TOtpInput>({
     resolver: zodResolver(otpVerifySchema),
   });

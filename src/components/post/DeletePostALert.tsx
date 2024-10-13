@@ -6,14 +6,14 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
-import useDeletePost from "@/hooks/post/useDeletePost";
+
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Spinner } from "../ui/spinner";
 
-export default function DeletePostAlert({ postId }: { postId: string }) {
+export default function DeletePostAlert() {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const {mutateAsync ,isPending} = useDeletePost()
+  const isPending = false
 
   const openDeleteDialog = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevents dropdown from closing

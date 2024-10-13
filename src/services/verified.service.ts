@@ -14,7 +14,7 @@ export const getEligibility = async (token: string) => {
 
 export const VerifiedProfileAndPayment = async (payload :  {token:string ,session_id: string} ) => {
   const {token ,session_id} = payload
-  console.log(token)
+
   const response = await apiClient.post(
     `/payment/confirm-payment`,
     {

@@ -6,14 +6,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Edit2 } from "lucide-react";
-import Image from "next/image";
+
 import ProfileForm from "../form/ProfileForm";
 export default function EditProfileModal() {
   return (
@@ -29,7 +29,7 @@ export default function EditProfileModal() {
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you are done.
             </DialogDescription>
           </DialogHeader>
             <ProfileForm />

@@ -24,7 +24,7 @@ import confetti from "canvas-confetti";
 import { useRouter } from "next/navigation";
 import useVerifyPayment from "@/hooks/payment/useVerifyPayment";
 import useAuth from "@/stores/authSore";
-import toast from "react-hot-toast";
+
 interface PaymentSuccessProps {
   searchParams: {
     session_id: string;
@@ -40,6 +40,7 @@ export default function PaymentSuccess({
 
   const { mutateAsync, status, error } = useVerifyPayment();
 
+
   useEffect(() => {
     // Trigger confetti animation for payment success
     confetti({
@@ -47,7 +48,6 @@ export default function PaymentSuccess({
       spread: 70,
       origin: { y: 0.6 },
     });
-
 
     // Start verification using the mutation hook
     const verifyPayment = async () => {
@@ -60,10 +60,10 @@ export default function PaymentSuccess({
         spread: 100,
         origin: { y: 0.6 },
       });
+
     };
 
     if (auth) {
-   
       verifyPayment();
     }
 
@@ -92,7 +92,7 @@ export default function PaymentSuccess({
       clearInterval(progressInterval);
       clearInterval(countdownInterval);
     };
-  }, [auth?.token]);
+  }, [auth.token ,session_id,]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center w-full">
@@ -133,7 +133,7 @@ export default function PaymentSuccess({
               </AlertDescription>
             </Alert>
           ) : (
-            <Alert variant="success">
+            <Alert >
               <CheckCircle className="h-4 w-4" />
               <AlertTitle>Profile Verified!</AlertTitle>
               <AlertDescription>

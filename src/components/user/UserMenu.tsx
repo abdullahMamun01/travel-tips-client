@@ -25,6 +25,8 @@ import VerifiedModal from "../profile/VerifiedModal";
 import { useEffect, useState } from "react";
 import { getEligibility } from "@/services/verified.service";
 
+
+
 const UserMenu = () => {
   const { setAuth, auth } = useAuth();
   const user = auth?.user;
@@ -35,17 +37,22 @@ const UserMenu = () => {
 
   useEffect(() => {
     const fetEligibleSubscription = async () => {
-     const response = await getEligibility(auth?.token as string);
+      const response = await getEligibility(auth?.token as string);
 
-     setIsEligible(response)
-
+      setIsEligible(response);
     };
- 
-      if(auth?.token){
-        fetEligibleSubscription()
-      }
-  
+
+    if (auth?.token) {
+      fetEligibleSubscription();
+    }
   }, []);
+
+  let isVerifyComponent: React.ReactNode | null = null;
+
+  if (!auth?.user?.isVerified && isEligible) {
+    isVerifyComponent = <VerifiedModal />;
+  }
+
   return (
     <div className="flex items-center space-x-4">
       <CreatePostBtn />
@@ -86,7 +93,7 @@ const UserMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {isEligible && <VerifiedModal />}
+      {isVerifyComponent}
     </div>
   );
 };

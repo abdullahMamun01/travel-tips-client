@@ -1,6 +1,6 @@
 import { LogIn } from "lucide-react";
 import { Button } from "../ui/button";
-import useAuth from "@/stores/authSore";
+
 import Link from "next/link";
 
 const AuthenticationButtons = () => {

@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 
 type TSubmitButtonProps = {
   children: ReactNode;

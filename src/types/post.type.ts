@@ -15,6 +15,7 @@ export interface IPost {
     firstName: string;
     lastName: string;
     image?: string;
+    isVerified:boolean
   };
   upvoteCount: number;
   downvoteCount: number;
@@ -38,6 +39,7 @@ export type TPostMutate = TPostBase & {
 export interface IPostResponse {
   totalPage: number;
   page: number;
+  hasNextPage:boolean ,
   data: IPost[];
 }
 
