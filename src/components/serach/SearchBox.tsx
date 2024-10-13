@@ -2,7 +2,7 @@
 import { useSearchStore } from "@/stores/searchStore";
 import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { Search } from "lucide-react";
+
 import {
   Select,
   SelectContent,
@@ -56,7 +56,7 @@ const SearchAndFilter: React.FC = () => {
           onChange={handleSearch}
           className="w-full"
           itemType="search"
-          icon={<Search className="h-4 w-4 text-muted-foreground" />}
+        
         />
       </div>
       <div className="col-span-4 flex gap-4 flex-1 w-full">

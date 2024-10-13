@@ -39,7 +39,9 @@ export type TPost = {
     firstName: string;
     lastName: string;
     image?: string;
+    isVerifeid: boolean
   };
+  
   upvoteCount: number;
   downvoteCount: number;
   commentCount: number;

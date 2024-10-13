@@ -10,7 +10,7 @@ export default function TabsContentSection() {
   const { auth } = useAuth();
 
   const { data } = useUserPosts(auth?.user?._id as string);
-
+  console.log(data)
   return (
     <Tabs defaultValue="posts" className="space-y-4">
       <TabsList>
@@ -31,6 +31,7 @@ export default function TabsContentSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {data && data?.data?.length > 0 ? (
             <>
+            
               {data?.data?.map((post) => (
                 <PostCard key={post._id} {...post} />
               ))}

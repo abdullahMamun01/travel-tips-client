@@ -2,10 +2,11 @@ import apiClient from "@/api/axios";
 import { TAxiosResponse } from "./service.type";
 import {
   TFollowUnfollow,
-  TPost,
+
   TProfileUpdatePayload,
   TUser,
 } from "./types/user.type";
+import { IPost } from "@/types/post.type";
 
 const getSingleUser = async (
   userId: string
@@ -14,7 +15,7 @@ const getSingleUser = async (
   return response.data;
 };
 
-const getUerPost = async (userId: string): Promise<TAxiosResponse<TPost[]>> => {
+const getUerPost = async (userId: string): Promise<TAxiosResponse<IPost[]>> => {
   const response = await apiClient.get(`/users/${userId}/posts`);
   return response.data;
 };

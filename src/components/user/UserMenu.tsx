@@ -24,8 +24,7 @@ import { Avatar } from "./Avatar";
 import VerifiedModal from "../profile/VerifiedModal";
 import { useEffect, useState } from "react";
 import { getEligibility } from "@/services/verified.service";
-
-
+import Link from "next/link";
 
 const UserMenu = () => {
   const { setAuth, auth } = useAuth();
@@ -66,10 +65,12 @@ const UserMenu = () => {
         <DropdownMenuContent className="w-56" align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>View Profile</span>
-          </DropdownMenuItem>
+          <Link href={"/profile"}>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>View Profile</span>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             <Edit className="mr-2 h-4 w-4" />
             <span>Edit Avatar</span>
