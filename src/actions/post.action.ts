@@ -37,7 +37,7 @@ export const getPosts = async (payload: TPayload): Promise<IPostResponse> => {
   }
 
   queryParams.append("page", pageParam);
-  queryParams.append("limit", "5");
+  queryParams.append("limit", "2");
 
   const response = await apiClient.get(`/posts?${queryParams.toString()}`);
 

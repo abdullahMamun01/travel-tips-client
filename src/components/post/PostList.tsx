@@ -21,13 +21,13 @@ export default function PostList({
   const { filters } = useSearchStore();
 
   const { fetchNextPage, hasNextPage, data, isLoading } = useInfiniteQuery({
-    queryKey: ["posts", filters],
+    queryKey: ["posts", filters || ''],
 
     queryFn: async ({ pageParam = 1 }) => {
       const response = await getPosts({
         pageParam: pageParam.toString(),
         ...filters,
-        categories: filters.selectedCategory || "",
+        categories: filters?.selectedCategory || "",
       });
 
       return response;

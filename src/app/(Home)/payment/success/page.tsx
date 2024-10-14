@@ -38,8 +38,7 @@ export default function PaymentSuccess({
   const [progress, setProgress] = useState(0);
   const { auth } = useAuth();
 
-  const { mutateAsync, status, error } = useVerifyPayment();
-
+  const { mutateAsync, status, error, isPending } = useVerifyPayment();
 
   useEffect(() => {
     // Trigger confetti animation for payment success
@@ -60,7 +59,6 @@ export default function PaymentSuccess({
         spread: 100,
         origin: { y: 0.6 },
       });
-
     };
 
     if (auth) {
@@ -74,7 +72,7 @@ export default function PaymentSuccess({
           clearInterval(progressInterval);
           return 100;
         }
-        return prevProgress + 5;
+        return prevProgress + 10;
       });
     }, 150);
 
@@ -92,7 +90,7 @@ export default function PaymentSuccess({
       clearInterval(progressInterval);
       clearInterval(countdownInterval);
     };
-  }, [auth ,session_id,]);
+  }, [auth, session_id]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center w-full">
@@ -107,14 +105,16 @@ export default function PaymentSuccess({
           <CardDescription>Your profile is being verified</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Alert variant="destructive">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Do not close this tab</AlertTitle>
-            <AlertDescription>
-              Please keep this page open while we verify your profile. This
-              process may take a few moments.
-            </AlertDescription>
-          </Alert>
+          {isPending && (
+            <Alert variant="destructive">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Do not close this tab</AlertTitle>
+              <AlertDescription>
+                Please keep this page open while we verify your profile. This
+                process may take a few moments.
+              </AlertDescription>
+            </Alert>
+          )}
 
           {!status && !error ? (
             <div className="space-y-2">
@@ -133,7 +133,7 @@ export default function PaymentSuccess({
               </AlertDescription>
             </Alert>
           ) : (
-            <Alert >
+            <Alert>
               <CheckCircle className="h-4 w-4" />
               <AlertTitle>Profile Verified!</AlertTitle>
               <AlertDescription>
