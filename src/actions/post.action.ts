@@ -21,12 +21,8 @@ export const getPosts = async (payload: TPayload): Promise<IPostResponse> => {
   }
 
   if (categories) {
-
-    if(categories === 'All' ){
-      queryParams.append("categories", "");
-    }else {
-      queryParams.append("categories", categories);
-    }
+    console.log(categories)
+    queryParams.append("categories", categories);
     
   }
 
@@ -37,8 +33,8 @@ export const getPosts = async (payload: TPayload): Promise<IPostResponse> => {
   }
 
   queryParams.append("page", pageParam);
-  queryParams.append("limit", "2");
-
+  queryParams.append("limit", "4");
+  
   const response = await apiClient.get(`/posts?${queryParams.toString()}`);
 
   return response.data.data;

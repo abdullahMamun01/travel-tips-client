@@ -50,7 +50,7 @@ export default function Vote({
   const hasDownVote = auth
     ? downvoteList.includes(auth?.user?._id as string)
     : null;
-  console.log(upvoteList, downvoteList);
+ 
 
   return (
     <div className="flex items-center bg-white dark:bg-gray-600 rounded-full overflow-hidden shadow-sm">

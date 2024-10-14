@@ -27,6 +27,9 @@ const SearchAndFilter: React.FC = () => {
   };
 
   const handleCategoryChange = (category: string) => {
+    if(category === 'All'){
+      setFilters({ selectedCategory: '' })
+    }else
     setFilters({ selectedCategory: category });
   };
 
@@ -72,7 +75,7 @@ const SearchAndFilter: React.FC = () => {
           </SelectTrigger>
 
           <SelectContent>
-            <SelectItem key="All" value=" ">
+            <SelectItem key="All" value="All">
               All
             </SelectItem>
             {categories.map((category) => (

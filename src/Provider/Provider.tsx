@@ -11,15 +11,7 @@ export interface ProvidersProps {
   children: React.ReactNode;
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0,   // Adjust based on how fresh you want data to be
-     
-      refetchOnWindowFocus: false,  // Optional, prevent refetch on window focus
-    },
-  },
-})
+const queryClient = new QueryClient()
 
 export function Providers({ children }: ProvidersProps) {
 

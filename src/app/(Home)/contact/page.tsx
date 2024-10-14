@@ -20,8 +20,7 @@ export default function ContactUs() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Empty functionality for form submission
-    console.log("Form submitted:", formData)
+
     // Reset form fields
     setFormData({ name: "", email: "", message: "" })
   }
