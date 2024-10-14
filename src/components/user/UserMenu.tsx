@@ -25,6 +25,7 @@ import VerifiedModal from "../profile/VerifiedModal";
 import { useEffect, useState } from "react";
 import { getEligibility } from "@/services/verified.service";
 import Link from "next/link";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 const UserMenu = () => {
   const { setAuth, auth } = useAuth();
@@ -37,7 +38,7 @@ const UserMenu = () => {
   useEffect(() => {
     const fetEligibleSubscription = async () => {
       const response = await getEligibility(auth?.token as string);
-      console.log(response)
+
       setIsEligible(response);
     };
 
@@ -71,6 +72,14 @@ const UserMenu = () => {
               <span>View Profile</span>
             </DropdownMenuItem>
           </Link>
+          {user?.role === "admin" && (
+            <Link href={"/dashboard"}>
+              <DropdownMenuItem>
+                <DashboardIcon className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
+              </DropdownMenuItem>
+            </Link>
+          )}
           <DropdownMenuItem>
             <Edit className="mr-2 h-4 w-4" />
             <span>Edit Avatar</span>

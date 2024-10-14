@@ -10,7 +10,7 @@ export default function FollowerList({ userId }: { userId: string }) {
     queryKey: ["users-followings"],
     queryFn: async () => await followers(userId),
   });
-  console.log(data);
+
   if (isLoading) {
     return <div>Loadig.....</div>;
   }

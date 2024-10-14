@@ -40,7 +40,8 @@ export default function LoginForm() {
           _id: user?._id,
           phone: user.phone || "",
           address: user.address || "",
-          isVerified: user.isVerified
+          isVerified: user.isVerified,
+          role: user.role 
         },
       });
     }

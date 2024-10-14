@@ -63,7 +63,7 @@ export default function ProfileForm() {
       body: formData,
       token: auth?.token as string,
     });
-    const { firstName, lastName, location, image, bio, phone,isVerified } = response;
+    const { firstName, lastName, location, image, bio, phone,isVerified,role } = response;
     setAuth({
       token: auth?.token as string,
       user: {
@@ -73,7 +73,8 @@ export default function ProfileForm() {
         image,
         bio,
         phone,
-        isVerified
+        isVerified ,
+        role
       },
     });
   };

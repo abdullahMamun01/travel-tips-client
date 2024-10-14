@@ -37,7 +37,7 @@ export default function PostCard({
   _id: postId,
 }: IPost) {
   const imageList = images?.map((img) => imageUrlParser(img));
-console.log(user.isVerified)
+
   return (
     <Card
       className={`bg-white w-full border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 relative ${

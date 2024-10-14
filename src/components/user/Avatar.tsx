@@ -14,7 +14,7 @@ type TAvatarProps = {
 };
 
 export function Avatar({ image, name, isVerified  }: TAvatarProps) {
-console.log({isVerified})
+
   const imageUrl = image
     ? imageUrlParser(image)
     : `https://api.dicebear.com/6.x/initials/svg?seed=${name.slice(0, 1)}`;

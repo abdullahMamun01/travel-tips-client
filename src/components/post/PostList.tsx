@@ -41,7 +41,7 @@ export default function PostList({
   });
 
   const postList = data?.pages.flatMap((post) => post.data);
-  console.log(postList)
+
   return (
     <div className="w-full">
       {postList?.length === 0 && <NoDataMessage />}
