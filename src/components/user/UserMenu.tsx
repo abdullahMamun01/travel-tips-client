@@ -37,7 +37,7 @@ const UserMenu = () => {
   useEffect(() => {
     const fetEligibleSubscription = async () => {
       const response = await getEligibility(auth?.token as string);
-
+      console.log(response)
       setIsEligible(response);
     };
 

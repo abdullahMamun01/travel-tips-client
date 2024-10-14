@@ -5,12 +5,14 @@ import { Grid, Users, UserPlus } from "lucide-react";
 import useUserPosts from "@/hooks/user/useUserPosts";
 import useAuth from "@/stores/authSore";
 import PostCard from "../post/PostCard";
+import FollowerList from "../user/FollowerList";
+import FollwoingList from "../user/FollwoingList";
 
-export default function TabsContentSection() {
+export default function TabsContentSection({userId} : {userId?:string}) {
   const { auth } = useAuth();
+  const currentUserId = userId ? userId : auth?.user?._id
+  const { data } = useUserPosts(currentUserId as string);
 
-  const { data } = useUserPosts(auth?.user?._id as string);
-  console.log(data)
   return (
     <Tabs defaultValue="posts" className="space-y-4">
       <TabsList>
@@ -43,13 +45,15 @@ export default function TabsContentSection() {
       </TabsContent>
       <TabsContent value="followers">
         <p className="text-gray-600 dark:text-gray-400">
-          Followers list would go here.
+          <FollowerList userId={currentUserId as string}/>
         </p>
       </TabsContent>
       <TabsContent value="following">
         <p className="text-gray-600 dark:text-gray-400">
           Following list would go here.
+
         </p>
+        <FollwoingList userId={currentUserId as string} />
       </TabsContent>
     </Tabs>
   );

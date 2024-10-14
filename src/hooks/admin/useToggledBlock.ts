@@ -10,7 +10,7 @@ export default function useToggledBlock() {
   return useMutation({
     mutationFn: toggleBlockkAction,
     onSuccess: (data) => {
-        console.log({data})
+
       queryClient.invalidateQueries({queryKey: ["admin-users"]})
       toast.success(`User role update to ${data?.data.isBlocked ? 'block' : 'unblock'} successfully`, {
         position: "top-right",

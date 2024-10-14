@@ -13,14 +13,21 @@ import { getSingleUser } from "@/services/userService";
 import { getCurrentUser } from "@/actions/auth.action";
 import imageUrlParser from "@/lib/imageUrlParser";
 
-export default async function ProfileHeader() {
+type Props = {
+  userId?:string
+}
+
+export default async function ProfileHeader({userId} :Props) {
+
   const currentUser = await getCurrentUser();
+  const currentUserId = userId ? userId : currentUser?.userId
   const queryClient = new QueryClient();
   const data = await queryClient.fetchQuery({
     queryKey: ["profile"],
-    queryFn: async () => await getSingleUser(currentUser?.userId),
+    queryFn: async () => await getSingleUser(currentUserId),
   });
   const user = data.data;
+
   const imageUrl = user?.image
     ? imageUrlParser(user?.image)
     : `https://api.dicebear.com/6.x/initials/svg?seed=${user.firstName.slice(
@@ -48,6 +55,7 @@ export default async function ProfileHeader() {
         <div className="flex-1 text-center md:text-left">
           <UserInfo user={user} />
         </div>
+        
       </HydrationBoundary>
     </div>
   );

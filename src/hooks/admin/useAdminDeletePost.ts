@@ -9,8 +9,8 @@ export default function useAdminDeletePost() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deletePostAction,
-    onSuccess: (data) => {
-        console.log(data)
+    onSuccess: () => {
+
       queryClient.invalidateQueries({queryKey: ["admin-posts"]})
       toast.success(`User post delete by admin successfully`, {
         position: "top-right",

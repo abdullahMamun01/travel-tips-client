@@ -21,7 +21,7 @@ export const getPosts = async (payload: TPayload): Promise<IPostResponse> => {
   }
 
   if (categories) {
-    console.log(categories)
+
     if(categories === 'All' ){
       queryParams.append("categories", "");
     }else {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import ControlledInput from "../ControlledInput/ControlledInput";
 import TravelCategory from "../form/TravelCategory";
@@ -14,11 +14,20 @@ import SubmitButton from "../form/SubmitButton";
 import { usePostStore } from "@/stores/postStore";
 import useUpdatePost from "@/hooks/post/useUpdatePost";
 import { useModal } from "@/stores/modalStore";
+import { Label } from "../ui/label";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Info } from "lucide-react";
+import { Switch } from "../ui/switch";
+import useAuth from "@/stores/authSore";
 
 export default function PostModal() {
+  const {auth} = useAuth()
+  const isVerified  = auth?.user?.isVerified
+  const [isPremium, setIsPremium] = useState(isVerified|| false)
+
   const { mutateAsync, isPending } = useCreatePost();
   const updatePostMutate = useUpdatePost();
-
+ 
   const { updatePost } = usePostStore();
   const {setCloseModal} = useModal()
   const form = useForm<TPost>({
@@ -44,6 +53,12 @@ export default function PostModal() {
         formData.append(key, value as string);
       }
     }
+
+
+    if(isPremium){
+      formData.append('premium', String(isPremium));
+    }
+
     if (updatePost) {
       await updatePostMutate.mutateAsync({
         body: formData,
@@ -56,7 +71,6 @@ export default function PostModal() {
     }
 
   };
-
   return (
     <div>
       <div className="space-y-4">
@@ -83,6 +97,32 @@ export default function PostModal() {
 
             <div className="mt-20 mb-10">
               <ImageUpload />
+            </div>
+
+            <div className="grid grid-cols-4 items-center gap-4 my-4">
+              <Label htmlFor="premium" className="text-right">
+               Marked as Premium Content
+              </Label>
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="premium"
+                  checked={isPremium}
+                  onCheckedChange={setIsPremium}
+                  disabled={!isVerified}
+                />
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className={`h-4 w-4 ${isVerified ? 'text-gray-400' : 'text-yellow-500'}`} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {true 
+                        ? "Mark this content as premium for verified users only."
+                        : "You need to be a verified user to create premium content."}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             </div>
 
             <SubmitButton isLoading={updatePost? updatePostMutate.isPending : isPending}>

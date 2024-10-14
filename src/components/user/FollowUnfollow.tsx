@@ -55,6 +55,7 @@ const FollowUnfollowButton = ({
       variant={followingStatus ? "secondary" : "default"}
       size="sm"
       disabled={isLoading}
+      className="bg-white text-black hover:bg-gray-200 "
     >
       {followingStatus ? (
         <>
@@ -82,7 +83,7 @@ export default function FollowUnfollow({ userId }: TFollowUnfollowProps) {
           {auth?.token ? (
             <FollowUnfollowButton userId={userId} token={auth.token} />
           ) : (
-            <Button variant="default" size="sm" disabled>
+            <Button className="bg-white text-black" size="sm" disabled>
               <UserPlus className="h-4 w-4 mr-2" />
               Follow
             </Button>

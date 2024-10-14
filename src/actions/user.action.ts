@@ -2,6 +2,7 @@
 
 import apiClient from "@/api/axios";
 import {
+  TFollowFollowing,
   TFollowUnfollow,
   TProfileUpdatePayload,
 } from "@/services/types/user.type";
@@ -53,6 +54,22 @@ export const getAllUser = async (): Promise<TAxiosResponse<TUserAdminAccess[]>> 
       Authorization: `Bearer ${user?.token}`,
     },
   });
+
+  return response.data;
+};
+
+
+export const followers = async (userId:string): Promise<TAxiosResponse<TFollowFollowing[]>> => {
+
+  const response = await apiClient.get(`/users/${userId}/followers`, );
+
+  return response.data;
+};
+
+
+export const followings = async (userId:string): Promise<TAxiosResponse<TFollowFollowing[]>> => {
+
+  const response = await apiClient.get(`/users/${userId}/followings`, );
 
   return response.data;
 };

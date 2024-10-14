@@ -9,12 +9,12 @@ import imageUrlParser from "@/lib/imageUrlParser";
 import { CheckCircle } from "lucide-react";
 type TAvatarProps = {
   name: string;
-  image?: string | undefined;
+  image?: string ;
   isVerified?: boolean;
 };
 
-export function Avatar({ image, name, isVerified = false }: TAvatarProps) {
-
+export function Avatar({ image, name, isVerified  }: TAvatarProps) {
+console.log({isVerified})
   const imageUrl = image
     ? imageUrlParser(image)
     : `https://api.dicebear.com/6.x/initials/svg?seed=${name.slice(0, 1)}`;

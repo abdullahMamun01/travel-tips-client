@@ -5,7 +5,7 @@ import {
   Award,
   Bookmark,
   Clock,
-  Compass,
+
   Globe,
   History,
   Map,
@@ -13,9 +13,10 @@ import {
   PenTool,
   PlusCircle,
   Tag,
-  Users,
+
 } from "lucide-react";
 import { Button } from "../ui/button";
+import categoryList from "@/lib/categoris";
 
 export default function Sidebar() {
   return (
@@ -41,18 +42,12 @@ export default function Sidebar() {
             Categories
           </h2>
           <div className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start">
-              <Map className="mr-2 h-4 w-4" />
-              Destinations
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <Compass className="mr-2 h-4 w-4" />
-              Travel Tips
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <Users className="mr-2 h-4 w-4" />
-              Travel Stories
-            </Button>
+            {categoryList?.map((category ,i) => (
+              <Button key={i} variant="ghost" className="w-full justify-start">
+                <Map className="mr-2 h-4 w-4" />
+                {category}
+              </Button>
+            ))}
           </div>
         </div>
         <div className="px-3 py-2">

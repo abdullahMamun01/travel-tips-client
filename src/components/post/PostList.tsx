@@ -41,14 +41,14 @@ export default function PostList({
   });
 
   const postList = data?.pages.flatMap((post) => post.data);
-
+  console.log(postList)
   return (
     <div className="w-full">
       {postList?.length === 0 && <NoDataMessage />}
       {isLoading && <LoadingSpinner />}
       <InfiniteScroll fetchNext={fetchNextPage} hasMore={hasNextPage}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          {postList?.map((post) => (
+      {postList?.map((post) => (
             <PostCard key={post?._id} {...post} />
           ))}
         </div>

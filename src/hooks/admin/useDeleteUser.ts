@@ -9,8 +9,8 @@ export default function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteUserAction,
-    onSuccess: (data) => {
-        console.log(data)
+    onSuccess: () => {
+
       queryClient.invalidateQueries({queryKey: ["admin-users"]})
       toast.success(`User block/unblock by admin successfully`, {
         position: "top-right",

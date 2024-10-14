@@ -73,3 +73,11 @@ export type TFollowUnfollow = {
   userId: string;
   token: string;
 };
+
+
+export type TFollowFollowing = {
+  _id:string ,
+  image?:string ,
+  firstName:string ,
+  lastName:string
+}

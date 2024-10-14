@@ -23,7 +23,7 @@ export default function AnalyticUsers() {
     queryKey: ["analytic-users"],
     queryFn: async () => await userAnalyticAction(),
   });
-  console.log(data);
+
   if (isLoading) {
     return (
       <Card className="col-span-2 max-md:col-span-4">

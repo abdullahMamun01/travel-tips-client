@@ -21,10 +21,7 @@ import { Avatar } from "../user/Avatar";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { timeAgo } from "@/lib/timeAgo";
-
-// const FollowUnfollow = dynamic(() => import("../user/FollowUnfollow"), {
-//   ssr: false
-// });
+import FollowUnfollow from "../user/FollowUnfollow";
 
 export default function PostCard({
   title,
@@ -39,35 +36,34 @@ export default function PostCard({
 
   _id: postId,
 }: IPost) {
-
-
   const imageList = images?.map((img) => imageUrlParser(img));
-  //className={`bg-white border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 ${premium? 'border-2 border-yellow-400' : ''}
+console.log(user.isVerified)
   return (
     <Card
       className={`bg-white w-full border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 relative ${
         premium ? "border-2 border-yellow-400" : ""
       }`}
     >
+      {premium && (
+        <Badge className="absolute top-2 left-2 right-2 bg-yellow-400 text-yellow-900 w-20">
+          <Lock className="w-8 h-3 mr-1" />
+          Premium
+        </Badge>
+      )}
+
+      <div className="absolute top-2 right-2 flex space-x-2">
+        <PostActions
+          currentUser={user?._id}
+          postId={postId}
+          categories={categories}
+          description={description}
+          images={imageList}
+          title={title}
+        />
+
+        <FollowUnfollow userId={user?._id} />
+      </div>
       <Link href={`/posts/${postId}`}>
-        {premium && (
-          <Badge className="absolute top-2 left-2 right-2 bg-yellow-400 text-yellow-900 w-20">
-            <Lock className="w-8 h-3 mr-1" />
-            Premium
-          </Badge>
-        )}
-
-        <div className="absolute top-2 right-2 flex space-x-2">
-          <PostActions
-            currentUser={user?._id}
-            postId={postId}
-            categories={categories}
-            description={description}
-            images={imageList}
-            title={title}
-          />
-        </div>
-
         <CardHeader className="p-0">
           <Image
             width={500}
@@ -78,37 +74,40 @@ export default function PostCard({
             className="w-full h-48 object-cover"
           />
         </CardHeader>
-        <CardContent className="p-4">
-          <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center space-x-2">
+      </Link>
+      <CardContent className="p-4">
+        <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
+        <div className="flex items-center justify-between mb-2">
+            <Link href={`/profile/${user._id}`}>
+          <div className="flex items-center space-x-2">
               <Avatar
-                name={user.firstName}
-                image={user.image}
+                name={user?.firstName}
                 isVerified={user.isVerified}
+                image={user?.image }
               />
               <span className="text-sm text-gray-600">
                 {user.firstName} {user.lastName}
               </span>
-            </div>
           </div>
-          <div className="flex flex-wrap gap-2 mb-2">
-            {categories.map((tag) => (
-              <Badge
-                key={tag}
-                variant="secondary"
-                className="bg-blue-100 text-blue-800"
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-          <div className="text-sm text-gray-500">
-            {timeAgo(createdAt)}
-            time
-          </div>
-        </CardContent>
-      </Link>
+            </Link>
+        </div>
+        <div className="flex flex-wrap gap-2 mb-2">
+          {categories.map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="bg-blue-100 text-blue-800"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </div>
+        <div className="text-sm text-gray-500">
+          {timeAgo(createdAt)}
+          time
+        </div>
+      </CardContent>
+
       <CardFooter className="flex justify-between items-center p-4 bg-gray-50 rounded-b-lg">
         <div className="flex items-center space-x-4">
           <Vote
