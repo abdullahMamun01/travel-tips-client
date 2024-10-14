@@ -54,12 +54,12 @@ const UserMenu = () => {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 max-md:flex-col mad-md:gap-4">
       <CreatePostBtn />
-      <Bell className="h-6 w-6 cursor-pointer" />
+      <Bell className="h-6 w-6 cursor-pointer max-md:hidden" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button>
+          <button className="max-md:my-3">
             <Avatar name={user?.firstName as string} image={user?.image} />
           </button>
         </DropdownMenuTrigger>

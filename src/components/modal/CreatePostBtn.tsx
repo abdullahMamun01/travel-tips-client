@@ -27,7 +27,7 @@ export default function CreatePostBtn() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full max-md:my-3">
       <Dialog open={isOpen} onOpenChange={handleModalChange}>
         <DialogTrigger asChild>
           <Button className="bg-white text-teal-600 hover:bg-teal-100">

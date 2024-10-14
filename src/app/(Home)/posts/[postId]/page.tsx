@@ -33,7 +33,7 @@ export default async function PostDetailsPage({
 
   const user = await getCurrentUser();
 
-  if (data.premium && user?.isVerified) {
+  if (data.premium && !user?.isVerified) {
     return <PremiumContentWarning />;
   }
 
