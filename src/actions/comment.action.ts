@@ -1,7 +1,7 @@
 "use server";
 
 import apiClient from "@/api/axios";
-
+import { getCurrentUser } from "./auth.action";
 
 const deletCommentAction = async ({
   token,
@@ -16,6 +16,25 @@ const deletCommentAction = async ({
     },
   });
 
+  return response.data;
+};
+
+export const replyAction = async (payload: {
+  reply: string;
+  commentId: string;
+}) => {
+  const currentUser = await getCurrentUser();
+  const response = await apiClient.post(
+    `/comments/${payload.commentId}/reply`,
+    {
+      reply: payload.reply,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${currentUser?.token}`,
+      },
+    }
+  );
   return response.data;
 };
 

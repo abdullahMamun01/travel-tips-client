@@ -1,5 +1,3 @@
-
-
 export interface IPost {
   _id: string;
   userId: string;
@@ -15,8 +13,10 @@ export interface IPost {
     firstName: string;
     lastName: string;
     image?: string;
-    isVerified:boolean
+    isVerified: boolean;
   };
+  upvotes: string[];
+  downvotes: string[];
   upvoteCount: number;
   downvoteCount: number;
   commentCount: number;
@@ -25,7 +25,7 @@ export type TPostBase = {
   title: string;
   description: string;
   images: string[];
-  categories: string |  string[] ;
+  categories: string | string[];
 };
 
 export type TPost = TPostBase & {
@@ -39,25 +39,24 @@ export type TPostMutate = TPostBase & {
 export interface IPostResponse {
   totalPage: number;
   page: number;
-  hasNextPage:boolean ,
+  hasNextPage: boolean;
   data: IPost[];
 }
 
-
-export type TSinglePostResponse  = {
-  success: boolean ,
-  message:string ,
-  statuscode: number ,
-  data : TSinglePost
-}
+export type TSinglePostResponse = {
+  success: boolean;
+  message: string;
+  statuscode: number;
+  data: TSinglePost;
+};
 
 export type TSinglePost = {
   _id: string;
   user: {
-    _id:string ;
-    firstName :string ,
-    lastName:string ,
-    image?:string
+    _id: string;
+    firstName: string;
+    lastName: string;
+    image?: string;
   };
   title: string;
   description: string;
@@ -66,4 +65,4 @@ export type TSinglePost = {
   premium: boolean;
   createdAt: string;
   updatedAt: string;
-}
+};

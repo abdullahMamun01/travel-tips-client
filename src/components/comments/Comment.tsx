@@ -10,24 +10,33 @@ import CommentAction from "./CommentAction";
 
 import CommentBox from "./CommentBox";
 import { useCommentStore } from "@/stores/commentStore";
-
+import { useState } from "react";
+import ReplyBox from "./ReplyBox";
 
 export default function Comment({
   user,
   replies,
   createdAt,
   comment,
-  _id
+  _id,
 }: TComment) {
-  const commentId = _id
-  const {selectedComment} = useCommentStore()
+  const commentId = _id;
+  const { selectedComment } = useCommentStore();
+  const [showReply, setShowReply] = useState(false);
+  const handleReply = () => {
+    setShowReply(true);
+  };
   return (
     <div>
-  
+
       <div className="flex items-start space-x-4 relative">
-      <div className="absolute top-2 right-2 flex space-x-2">
-        <CommentAction   comment={comment} commentId={commentId} userId={user._id}/>
-      </div>
+        <div className="absolute top-2 right-2 flex space-x-2">
+          <CommentAction
+            comment={comment}
+            commentId={commentId}
+            userId={user._id}
+          />
+        </div>
         <Avatar name={user.firstName} image={user.image || undefined} />
         <div className="flex-1">
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
@@ -47,6 +56,7 @@ export default function Comment({
             <Button
               variant="link"
               className="text-sm text-blue-600 dark:text-blue-400"
+              onClick={handleReply}
             >
               reply
             </Button>
@@ -61,7 +71,7 @@ export default function Comment({
             </Button>
           </div>
           <div>
-            {selectedComment?.commentId === commentId && <CommentBox/>}
+            {selectedComment?.commentId === commentId && <CommentBox />}
           </div>
           <div className="my-8 ">
             {replies?.map((reply) => (
@@ -69,6 +79,9 @@ export default function Comment({
             ))}
           </div>
         </div>
+      </div>
+      <div className="pl-32">
+       {showReply &&  <ReplyBox commentId={commentId}/>}
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ export const followers = async (userId:string): Promise<TAxiosResponse<TFollowFo
 
 
 export const followings = async (userId:string): Promise<TAxiosResponse<TFollowFollowing[]>> => {
-
+  
   const response = await apiClient.get(`/users/${userId}/followings`, );
 
   return response.data;

@@ -21,7 +21,7 @@ export default function PostList({
   const { filters } = useSearchStore();
 
   const { fetchNextPage, hasNextPage, data, isLoading } = useInfiniteQuery({
-    queryKey: ["posts", filters || ''],
+    queryKey: ["posts", filters || ""],
 
     queryFn: async ({ pageParam = 1 }) => {
       const response = await getPosts({
@@ -36,6 +36,8 @@ export default function PostList({
     getNextPageParam: (lastPage) => {
       return lastPage.hasNextPage ? lastPage.page + 1 : undefined;
     },
+    staleTime: 0,
+    refetchOnWindowFocus: false,
     initialPageParam: 1,
     initialData: { pageParams: [], pages: [initialData] },
   });
@@ -47,8 +49,8 @@ export default function PostList({
       {postList?.length === 0 && <NoDataMessage />}
       {isLoading && <LoadingSpinner />}
       <InfiniteScroll fetchNext={fetchNextPage} hasMore={hasNextPage}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-      {postList?.map((post) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          {postList?.map((post) => (
             <PostCard key={post?._id} {...post} />
           ))}
         </div>

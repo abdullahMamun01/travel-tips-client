@@ -1,6 +1,5 @@
 import { getPosts } from "@/actions/post.action";
 
-
 import PostList from "./PostList";
 
 export default async function Posts() {
@@ -8,8 +7,6 @@ export default async function Posts() {
 
   return (
     <>
-
-
       <PostList initialData={data} />
     </>
   );

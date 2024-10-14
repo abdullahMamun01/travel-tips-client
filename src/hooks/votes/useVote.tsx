@@ -1,20 +1,20 @@
 "use client";
 import { voteAction } from "@/actions/vote.action";
+import { useSearchStore } from "@/stores/searchStore";
 
-import {
-
-  useMutation,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 
 export default function useVote() {
-  // const queryClient = useQueryClient();
+  const { filters } = useSearchStore();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: voteAction,
     onSuccess: () => {
-      
-        // queryClient.invalidateQueries(["posts"])
+      queryClient.invalidateQueries({
+        queryKey : ['posts' ,filters]
+      })
       toast.success("Upvted post", { position: "top-right" });
     },
     onError: (err) => {

@@ -28,11 +28,12 @@ export default function PostCard({
   images,
   categories,
   user,
-  upvoteCount,
-  downvoteCount,
   description,
   premium,
   createdAt,
+  commentCount,
+  upvotes,
+  downvotes ,
 
   _id: postId,
 }: IPost) {
@@ -78,18 +79,18 @@ export default function PostCard({
       <CardContent className="p-4">
         <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
         <div className="flex items-center justify-between mb-2">
-            <Link href={`/profile/${user._id}`}>
-          <div className="flex items-center space-x-2">
+          <Link href={`/profile/${user._id}`}>
+            <div className="flex items-center space-x-2">
               <Avatar
                 name={user?.firstName}
                 isVerified={user.isVerified}
-                image={user?.image }
+                image={user?.image}
               />
               <span className="text-sm text-gray-600">
                 {user.firstName} {user.lastName}
               </span>
-          </div>
-            </Link>
+            </div>
+          </Link>
         </div>
         <div className="flex flex-wrap gap-2 mb-2">
           {categories.map((tag) => (
@@ -111,9 +112,11 @@ export default function PostCard({
       <CardFooter className="flex justify-between items-center p-4 bg-gray-50 rounded-b-lg">
         <div className="flex items-center space-x-4">
           <Vote
-            upvotes={upvoteCount}
-            downvotes={downvoteCount}
+            upvotes={upvotes}
+            downvotes={downvotes}
             postId={postId}
+            commentCount={commentCount}
+  
           />
         </div>
         <div className="flex space-x-2">
