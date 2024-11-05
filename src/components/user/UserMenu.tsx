@@ -21,9 +21,7 @@ import {
 import CreatePostBtn from "../modal/CreatePostBtn";
 import useAuth from "@/stores/authSore";
 import { Avatar } from "./Avatar";
-import VerifiedModal from "../profile/VerifiedModal";
-import { useEffect, useState } from "react";
-import { getEligibility } from "@/services/verified.service";
+
 import Link from "next/link";
 import { DashboardIcon } from "@radix-ui/react-icons";
 
@@ -33,25 +31,6 @@ const UserMenu = () => {
   const handleLogout = () => {
     setAuth({ token: null, user: null });
   };
-  const [isEligible, setIsEligible] = useState(false);
-
-  useEffect(() => {
-    const fetEligibleSubscription = async () => {
-      const response = await getEligibility(auth?.token as string);
-
-      setIsEligible(response);
-    };
-
-    if (auth?.token) {
-      fetEligibleSubscription();
-    }
-  }, []);
-
-  let isVerifyComponent: React.ReactNode | null = null;
-
-  if (!auth?.user?.isVerified && isEligible) {
-    isVerifyComponent = <VerifiedModal />;
-  }
 
   return (
     <div className="flex items-center space-x-4 max-md:flex-col mad-md:gap-4">
@@ -59,8 +38,12 @@ const UserMenu = () => {
       <Bell className="h-6 w-6 cursor-pointer max-md:hidden" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="max-md:my-3">
-            <Avatar name={user?.firstName as string} image={user?.image} />
+          <button className="max-md:my-3 ">
+            <Avatar
+              userId={auth?.user?._id as string}
+              name={user?.firstName as string}
+              image={user?.image}
+            />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end">
@@ -103,7 +86,6 @@ const UserMenu = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {isVerifyComponent}
     </div>
   );
 };

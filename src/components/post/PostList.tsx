@@ -11,13 +11,9 @@ import LoadingSpinner from "../ui/Loading";
 import { useSearchStore } from "@/stores/searchStore";
 import { Frown, PenTool } from "lucide-react";
 import { Button } from "../ui/button";
-import { IPostResponse } from "@/types/post.type";
 
-export default function PostList({
-  initialData,
-}: {
-  initialData: IPostResponse;
-}) {
+
+export default function PostList() {
   const { filters } = useSearchStore();
 
   const { fetchNextPage, hasNextPage, data, isLoading } = useInfiniteQuery({
@@ -39,7 +35,6 @@ export default function PostList({
     staleTime: 0,
     refetchOnWindowFocus: false,
     initialPageParam: 1,
-    initialData: { pageParams: [], pages: [initialData] },
   });
 
   const postList = data?.pages.flatMap((post) => post.data);
@@ -49,7 +44,7 @@ export default function PostList({
       {postList?.length === 0 && <NoDataMessage />}
       {isLoading && <LoadingSpinner />}
       <InfiniteScroll fetchNext={fetchNextPage} hasMore={hasNextPage}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 w-full">
           {postList?.map((post) => (
             <PostCard key={post?._id} {...post} />
           ))}

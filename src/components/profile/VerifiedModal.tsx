@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import {
   Dialog,
@@ -7,24 +8,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "../ui/button";
 
 import SubscriptionForm from "../form/SubscriptionForm";
-import { Check } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 export default function VerifiedModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="relative w-full inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-green-400 to-teal-500 p-0.5 font-medium text-gray-900 hover:text-teal-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 dark:text-white"
-        >
-          <span className="relative flex items-center rounded-full bg-white px-5 py-2.5 transition-all duration-200 ease-in group-hover:bg-opacity-0 dark:bg-gray-900">
-            <Check className="mr-2 h-4 w-4" />
-            Verify Profile
-          </span>
-        </Button>
-
+        <button className="inline-flex items-center px-3 py-1 text-sm font-bold text-white bg-[#1d9bf0] hover:bg-[#1a8cd8] transition-colors rounded-full">
+          <BadgeCheck className="w-4 h-4 mr-1" />
+          <span>Get verified</span>
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

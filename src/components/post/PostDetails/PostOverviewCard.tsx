@@ -1,5 +1,4 @@
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,10 +7,9 @@ import {
 } from "@/components/ui/card";
 import imageUrlParser from "@/lib/imageUrlParser";
 import { TSinglePost } from "@/types/post.type";
-
-import { MessageCircle, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+
 
 
 
@@ -38,20 +36,7 @@ export default  function PostOverviewCard({ data }: {data:TSinglePost}){
         </CardContent>
         <CardFooter className="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
-            >
-              <ThumbsUp className="mr-2 h-5 w-5" />
-              {10}
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              {20}
-            </Button>
+            {/* <Vote /> */}
           </div>
         </CardFooter>
 

@@ -7,7 +7,7 @@ import { Avatar } from "../user/Avatar";
 export default function Replies({reply , createdAt ,user} : Reply) {
   return (
     <div className="ml-1 mt-4 flex items-start space-x-4">
-      <Avatar name={user.firstName} />
+      <Avatar userId={user._id} name={user.firstName} />
       <div className="flex-1">
         <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
           <div className="flex justify-between items-start">

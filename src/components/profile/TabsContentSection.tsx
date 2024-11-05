@@ -30,7 +30,7 @@ export default function TabsContentSection({userId} : {userId?:string}) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-2">
           {data && data?.data?.length > 0 ? (
             <>
             

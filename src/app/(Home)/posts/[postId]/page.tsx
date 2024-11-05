@@ -37,8 +37,11 @@ export default async function PostDetailsPage({
     return <PremiumContentWarning />;
   }
 
+  // console.log(data)
+
   return (
     <div className="min-h-screen w-full  bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
+
       <PostDetailsHeader data={data} />
       <main className="container mx-auto px-4 py-8">
         <PostOverviewCard data={data} />

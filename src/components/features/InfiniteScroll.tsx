@@ -40,7 +40,7 @@ const InfiniteScroll = ({
     <>
       {children}
       {hasMore && (
-        <div className="text-primary py-4" ref={loaderRef}>
+        <div className="text-primary " ref={loaderRef}>
           <Spinner size="large" />
         </div>
       )}

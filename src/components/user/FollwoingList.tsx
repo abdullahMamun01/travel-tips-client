@@ -24,7 +24,7 @@ export default function FollwoingList({userId}: {userId:string}) {
             className="flex items-center justify-between py-2"
           >
             <div className="flex items-center space-x-4">
-              <Avatar image={user?.image} name={user.firstName} />
+              <Avatar userId={user._id} image={user?.image} name={user.firstName} />
               <div>
                 <p className="text-sm font-medium">
                   {user.firstName} {user.lastName}

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getCurrentUser } from "./actions/auth.action";
 
-const publicRoutes = ["/", "/login", "/register", "/posts**"];
+const publicRoutes = [ "/login", "/register"];
 
 export async function middleware(request: NextRequest) {
   const user = await getCurrentUser();

@@ -60,7 +60,7 @@ export type TSinglePost = {
   };
   title: string;
   description: string;
-  images: string[];
+  images: string[] ;
   categories: string[];
   premium: boolean;
   createdAt: string;

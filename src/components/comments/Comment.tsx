@@ -27,8 +27,7 @@ export default function Comment({
     setShowReply(true);
   };
   return (
-    <div>
-
+    <div className="border-y border-gray-300 py-4">
       <div className="flex items-start space-x-4 relative">
         <div className="absolute top-2 right-2 flex space-x-2">
           <CommentAction
@@ -37,9 +36,9 @@ export default function Comment({
             userId={user._id}
           />
         </div>
-        <Avatar name={user.firstName} image={user.image || undefined} />
+        <Avatar userId={user._id}  name={user.firstName} image={user.image || undefined} />
         <div className="flex-1">
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+          <div className=" dark:bg-gray-800  rounded-lg ">
             <div className="flex justify-between items-start">
               <div>
                 <p className="font-semibold text-gray-900 dark:text-gray-100">
@@ -73,16 +72,21 @@ export default function Comment({
           <div>
             {selectedComment?.commentId === commentId && <CommentBox />}
           </div>
-          <div className="my-8 ">
-            {replies?.map((reply) => (
-              <Replies key={reply._id} {...reply} />
-            ))}
-          </div>
+
+          {replies?.map((reply) => (
+            <div className="my-8 " key={reply._id}>
+              <Replies {...reply} />{" "}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="pl-32">
-       {showReply &&  <ReplyBox commentId={commentId}/>}
-      </div>
+
+      {showReply && (
+        <div className="pl-32">
+          {" "}
+          <ReplyBox commentId={commentId} />{" "}
+        </div>
+      )}
     </div>
   );
 }

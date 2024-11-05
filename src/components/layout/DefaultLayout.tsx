@@ -1,25 +1,26 @@
 import React, { ReactNode } from "react";
 import Header from "../Header/Header";
-import Sidebar from "./Sidebar";
-import SearchBox from "../serach/SearchBox";
 
+import Sidebar from "./Sidebar";
+import RightSidebar from "./RightSidebar";
 type TRootLayoutProps = {
   children: ReactNode;
 };
 
 export default function DefaultLayout({ children }: TRootLayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-100 w-full">
+    <div className="">
       <Header />
-
-      <div className="flex flex-1 pt-16">
-        <aside className="w-64 max-md:hidden bg-white border-r border-gray-200 fixed h-full overflow-y-auto top-16">
+      <div className="flex min-h-screen w-full bg-background">
+        <div className="w-16 sm:w-64 p-2 sm:p-4 border-r">
           <Sidebar />
-        </aside>
-        <main className="max-md:m-0 flex-1 p-6 ml-64">
-          <SearchBox />
+        </div>
+        <div className="flex-1 border-r overflow-y-auto">
           {children}
-        </main>
+        </div>
+        <div className="hidden lg:flex flex-col w-80 p-4 gap-6 overflow-y-auto ">
+          <RightSidebar/>
+        </div>
       </div>
     </div>
   );

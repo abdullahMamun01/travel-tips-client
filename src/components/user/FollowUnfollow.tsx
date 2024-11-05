@@ -11,41 +11,32 @@ type TFollowUnfollowProps = {
   userId: string;
 };
 
-const FollowUnfollowButton = ({
-  userId,
-  token,
-}: {
-  userId: string;
-  token: string;
-}) => {
+const FollowUnfollowButton = ({ userId }: TFollowUnfollowProps) => {
+  const { auth } = useAuth();
+  const token = auth?.token;
+
   const [followingStatus, setFollowingStatus] = useState(false);
   const followAction = useFollowAction();
   const unfollowAction = useUnfollowAction();
   const isLoading = followAction.isPending || unfollowAction.isPending;
-  useEffect(() => {
-    async function fetchFollowingStatus() {
-      const response = await isFollowingAction({ token, userId });
-      setFollowingStatus(!!response.data); // assuming your API returns this
-    }
 
+  useEffect(() => {
     if (token) {
+      const fetchFollowingStatus = async () => {
+        const response = await isFollowingAction({ token, userId });
+        setFollowingStatus(!!response.data); // assuming your API returns this
+      };
       fetchFollowingStatus();
     }
   }, [token, userId]);
 
-  const handleFollow = async () => {
-    await followAction.mutateAsync({ token, userId });
-  };
-
-  const handleUnfollow = async () => {
-    await unfollowAction.mutateAsync({ token, userId });
-  };
-
-  const handleFollowAction = () => {
+  const handleFollowAction = async () => {
     if (followingStatus) {
-      handleUnfollow();
+      await unfollowAction.mutateAsync({ token: token  as string, userId });
+      setFollowingStatus(false);
     } else {
-      handleFollow();
+      await followAction.mutateAsync({ token: token  as string, userId });
+      setFollowingStatus(true);
     }
   };
 
@@ -55,7 +46,7 @@ const FollowUnfollowButton = ({
       variant={followingStatus ? "secondary" : "default"}
       size="sm"
       disabled={isLoading}
-      className="bg-white text-black hover:bg-gray-200 "
+      className="bg-teal-100 text-black hover:bg-teal-200"
     >
       {followingStatus ? (
         <>
@@ -68,28 +59,9 @@ const FollowUnfollowButton = ({
           Follow
         </>
       )}
+      
     </Button>
   );
 };
 
-// Main component to check authentication
-export default function FollowUnfollow({ userId }: TFollowUnfollowProps) {
-  const { auth } = useAuth();
-
-  return (
-    <div>
-      {auth?.user?._id != userId && (
-        <>
-          {auth?.token ? (
-            <FollowUnfollowButton userId={userId} token={auth.token} />
-          ) : (
-            <Button className="bg-white text-black" size="sm" disabled>
-              <UserPlus className="h-4 w-4 mr-2" />
-              Follow
-            </Button>
-          )}
-        </>
-      )}
-    </div>
-  );
-}
+export default FollowUnfollowButton;

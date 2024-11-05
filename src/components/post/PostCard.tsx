@@ -8,7 +8,7 @@ import {
 
 import { Button } from "../ui/button";
 
-import { Bookmark, Link2, Lock } from "lucide-react";
+import { Bookmark, Lock, MessageSquare, Share2 } from "lucide-react";
 import Image from "next/image";
 
 import { IPost } from "@/types/post.type";
@@ -33,26 +33,103 @@ export default function PostCard({
   createdAt,
   commentCount,
   upvotes,
-  downvotes ,
+  downvotes,
 
   _id: postId,
 }: IPost) {
   const imageList = images?.map((img) => imageUrlParser(img));
 
   return (
-    <Card
-      className={`bg-white w-full border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 relative ${
-        premium ? "border-2 border-yellow-400" : ""
-      }`}
-    >
+    <Card className="rounded-lg shadow-none mb-3 relative">
       {premium && (
         <Badge className="absolute top-2 left-2 right-2 bg-yellow-400 text-yellow-900 w-20">
           <Lock className="w-8 h-3 mr-1" />
           Premium
         </Badge>
       )}
+      <CardHeader className="flex flex-row items-start gap-4 space-y-0 mb-0">
+        <Avatar
+          name={user?.firstName}
+          isVerified={user.isVerified}
+          image={user?.image}
+          userId={user._id}
+        />
+        <div className="absolute right-10 top-5">
+          <FollowUnfollow userId={user._id} />
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center justify-between">
+            <div className="flex gap-6">
+              <div>
+                <p className="font-semibold">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {timeAgo(createdAt)}
+                </p>
+              </div>
+            </div>
+            <div className="absolute top-2 right-2 flex space-x-2">
+              <PostActions
+                currentUser={user?._id}
+                postId={postId}
+                categories={categories}
+                description={description}
+                images={imageList}
+                title={title}
+              />
 
-      <div className="absolute top-2 right-2 flex space-x-2">
+             
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="mt-0">
+        <div className="w-full mb-2">
+          <h1 className="text-blue-500 font-bold text-xl line-clamp-1">
+            {title}
+          </h1>
+        </div>
+        <div
+          className="line-clamp-3 my-3"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
+
+        <Link href={`/posts/${postId}`}>
+          <Image
+            width={500}
+            height={500}
+            quality={100}
+            src={imageUrlParser(images[0])}
+            alt={title}
+            className="w-full h-48 object-cover"
+          />
+        </Link>
+      </CardContent>
+      <CardFooter className="flex flex-col space-y-2">
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Vote
+              upvotes={upvotes}
+              downvotes={downvotes}
+              postId={postId}
+              commentCount={commentCount}
+            />
+          </div>
+          <Button variant="ghost" size="sm">
+            <MessageSquare className="mr-2 h-4 w-4" />
+            {commentCount} comments
+          </Button>
+          <Button variant="ghost" size="icon">
+            <Share2 className="h-4 w-4" />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <Bookmark className="h-4 w-4" />
+          </Button>
+        </div>
+      </CardFooter>
+      {/* <div className="absolute top-2 right-2 flex space-x-2">
         <PostActions
           currentUser={user?._id}
           postId={postId}
@@ -116,7 +193,6 @@ export default function PostCard({
             downvotes={downvotes}
             postId={postId}
             commentCount={commentCount}
-  
           />
         </div>
         <div className="flex space-x-2">
@@ -135,7 +211,7 @@ export default function PostCard({
             <Link2 className="w-4 h-4" />
           </Button>
         </div>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

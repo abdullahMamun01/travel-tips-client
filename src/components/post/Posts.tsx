@@ -1,13 +1,15 @@
-import { getPosts } from "@/actions/post.action";
+
 
 import PostList from "./PostList";
+import { unstable_noStore as NoStore} from "next/cache";
 
 export default async function Posts() {
-  const data = await getPosts({ pageParam: "1" });
+  NoStore()
+
 
   return (
     <>
-      <PostList initialData={data} />
+      <PostList  />
     </>
   );
 }

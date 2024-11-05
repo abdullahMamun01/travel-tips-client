@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/button";
-import { PlusCircle } from "lucide-react";
+import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -27,12 +27,12 @@ export default function CreatePostBtn() {
   }
 
   return (
-    <div className="w-full max-md:my-3">
+    <div className="w-full max-md:my-3 py-8">
       <Dialog open={isOpen} onOpenChange={handleModalChange}>
         <DialogTrigger asChild>
-          <Button className="bg-white text-teal-600 hover:bg-teal-100">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Create Post
+          <Button className="bg-white text-lg text-gray-700 border-0 shadow-none hover:bg-gray-400 hover:text-black hover:rounded-s-full hover:rounded-e-full">
+            <Plus className="mr-2 h-4 w-4" />
+            <span className="max-md:hidden">Create </span>
           </Button>
         </DialogTrigger>
 

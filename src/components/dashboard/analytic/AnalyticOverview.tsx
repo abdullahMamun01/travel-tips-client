@@ -86,7 +86,7 @@ export default function AnalyticOverview() {
             <div className="space-y-8">
               {users.slice(0, 5).map((user) => (
                 <div className="flex items-center" key={user.id}>
-                  <Avatar name={user.name}/>
+                  <Avatar userId={'1234'} name={user.name}/>
                   <div className="ml-4 space-y-1">
                     <p className="text-sm font-medium leading-none">{user.name}</p>
                     <p className="text-sm text-muted-foreground">

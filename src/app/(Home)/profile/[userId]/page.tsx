@@ -19,11 +19,7 @@ export default function ProfilePage({params: {userId}}:Props) {
       <Card className="mb-8">
         <CardContent className="p-6">
           <ProfileHeader  userId={userId}/>
-          {/* <StatsOverview
-            posts={user.posts.length}
-            followers={user.followers}
-            following={user.following}
-          /> */}
+      
         </CardContent>
       </Card>
 
